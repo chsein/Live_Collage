@@ -2,7 +2,7 @@
 
 
 ## main.ipynb
-현재 네이버시그널(https://www.signal.bz/)에서 제공하는 실시간 검색어
+현재 [네이버시그널](https://www.signal.bz/) 에서 제공하는 실시간 검색어
 pororo를 활용하여 이미지로표현하기에 유의미한 키워드를 찾고 기사의 내용을 
 
 ## scrap.py
