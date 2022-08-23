@@ -22,5 +22,5 @@ pororo를 활용하여 이미지로표현하기에 유의미한 키워드를 찾
 - visualization.ipynb : 학습결과를 시각화한 파일
 - sample_image : sampleimage들과 그 결과
 
-- [Crowd Instance-level Human Parsing Dataset] (https://arxiv.org/abs/1811.12596) 을 사용하여 약 50000개의 sementic level의 사람 이미지를 학습함
-- [데이터 링크] (https://drive.google.com/uc?id=1B9A9UCJYMwTL4oBEo4RZfbMZMaZhKJaz)
+- [Crowd Instance-level Human Parsing Dataset](https://arxiv.org/abs/1811.12596) 을 사용하여 약 50000개의 sementic level의 사람 이미지를 학습함
+- [데이터 링크](https://drive.google.com/uc?id=1B9A9UCJYMwTL4oBEo4RZfbMZMaZhKJaz)
