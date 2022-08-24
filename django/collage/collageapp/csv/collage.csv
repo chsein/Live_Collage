@@ -1,0 +1,11 @@
+,article_link,article_title,keyword,article_summary,img_article,img_y,img,img_x,time
+0,https://www.naver.com/1,1번째 기사 제목,1번째 키워드,1번째 기사 내용,../../../static/img/1_newsimage.jpg,383,../../../static/img/1_new.png,112,2022-08-22 16:16
+1,https://www.naver.com/2,2번째 기사 제목,2번째 키워드,2번째 기사 내용,../../../static/img/2_newsimage.jpg,368,../../../static/img/2_new.png,79,2022-08-22 16:16
+2,https://www.naver.com/3,3번째 기사 제목,3번째 키워드,3번째 기사 내용,../../../static/img/3_newsimage.jpg,285,../../../static/img/3_new.png,233,2022-08-22 16:16
+3,https://www.naver.com/4,4번째 기사 제목,4번째 키워드,4번째 기사 내용,../../../static/img/4_newsimage.jpg,247,../../../static/img/4_new.png,49,2022-08-22 16:16
+4,https://www.naver.com/5,5번째 기사 제목,5번째 키워드,5번째 기사 내용,../../../static/img/5_newsimage.jpg,212,../../../static/img/5_new.png,156,2022-08-22 16:16
+5,https://www.naver.com/6,6번째 기사 제목,6번째 키워드,6번째 기사 내용,../../../static/img/6_newsimage.jpg,179,../../../static/img/6_new.png,222,2022-08-22 16:16
+6,https://www.naver.com/7,7번째 기사 제목,7번째 키워드,7번째 기사 내용,../../../static/img/7_newsimage.jpg,168,../../../static/img/7_new.png,75,2022-08-22 16:16
+7,https://www.naver.com/8,8번째 기사 제목,8번째 키워드,8번째 기사 내용,../../../static/img/8_newsimage.jpg,105,../../../static/img/8_new.png,160,2022-08-22 16:16
+8,https://www.naver.com/9,9번째 기사 제목,9번째 키워드,9번째 기사 내용,../../../static/img/9_newsimage.jpg,78,../../../static/img/9_new.png,232,2022-08-22 16:16
+9,https://www.naver.com/10,10번째 기사 제목,10번째 키워드,10번째 기사 내용,../../../static/img/10_newsimage.jpg,38,../../../static/img/10_new.png,151,2022-08-22 16:16
