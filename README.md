@@ -1,5 +1,7 @@
 # 실시간 정보의 시각화 
 
+모든 학습 및 파일은 Google Colab Pro + 환경에서 구동되도록 구현하였음
+
 ## main.ipynb
 1. 현재 [네이버시그널](https://www.signal.bz/) 에서 제공하는 실시간 검색어를 스크래핑
 
