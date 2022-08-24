@@ -54,17 +54,19 @@
         <div id="cardnews-container" style="visibility:hidden; width:500px; height:500px;" >
              <p id ="keyword"></p>
              <p id ="title"></p>
-             <img id="image" src="3_new.png">
+             <img id="image" src="../../../static/img/final_img/0.png">
              <p id ="content"></p>
         </div>
+
+
 
         <script type="text/javascript">
             
             function mouse_over1(){
-                let keyword1="{{ one_keyword }}";
-                let innertitle1="{{ one_title }}";                
+                let keyword1="{{ one_keyword|safe }}";
+                let innertitle1="{{ one_title|safe }}";                
                 document.getElementById("title").innerText=innertitle1;
-                let innercontent1="{{ one_content }}";    
+                let innercontent1="{{ one_content|safe }}";    
                 document.getElementById("keyword").innerText=keyword1;
                 document.getElementById("content").innerText=innercontent1;
                 document.getElementById("image").src="{{ one_newsimage }}";
@@ -75,10 +77,10 @@
 
             function mouse_over2(){
                 
-                let keyword2="{{ two_keyword }}";
-                let innertitle2="{{ two_title }}"; 
+                let keyword2="{{ two_keyword|safe }}";
+                let innertitle2="{{ two_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle2;
-                let innercontent2="{{ two_content }}"; 
+                let innercontent2="{{ two_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword2;
                 document.getElementById("content").innerText=innercontent2;
                 document.getElementById("image").src="{{ two_newsimage }}";
@@ -87,10 +89,10 @@
 
             function mouse_over3(){
                 
-                let keyword3="{{ three_keyword }}";
-                let innertitle3="{{ three_title }}"; 
+                let keyword3="{{ three_keyword|safe }}";
+                let innertitle3="{{ three_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle3;
-                let innercontent3="{{ three_content }}";
+                let innercontent3="{{ three_content|safe }}";
                 document.getElementById("keyword").innerText=keyword3;
                 document.getElementById("content").innerText=innercontent3;
                 document.getElementById("image").src="{{ three_newsimage }}";
@@ -99,10 +101,10 @@
 
             function mouse_over4(){
                 
-                let keyword4="{{ four_keyword }}";
-                let innertitle4="{{ four_title }}"; 
+                let keyword4="{{ four_keyword|safe }}";
+                let innertitle4="{{ four_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle4;
-                let innercontent4="{{ four_content }}"; 
+                let innercontent4="{{ four_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword4;
                 document.getElementById("content").innerText=innercontent4;
                 document.getElementById("image").src="{{ four_newsimage }}";
@@ -111,10 +113,10 @@
 
             function mouse_over5(){
                 
-                let keyword5="{{ five_keyword }}";
-                let innertitle5="{{ five_title }}"; 
+                let keyword5="{{ five_keyword|safe }}";
+                let innertitle5="{{ five_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle5;
-                let innercontent5="{{ five_content }}"; 
+                let innercontent5="{{ five_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword5;
                 document.getElementById("content").innerText=innercontent5;
                 document.getElementById("image").src="{{ five_newsimage }}";   
@@ -124,10 +126,10 @@
             
             function mouse_over6(){
                 
-                let keyword6="{{ six_keyword }}";
-                let innertitle6="{{ six_title }}"; 
+                let keyword6="{{ six_keyword|safe }}";
+                let innertitle6="{{ six_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle6;
-                let innercontent6="{{ six_content }}"; 
+                let innercontent6="{{ six_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword6;
                 document.getElementById("content").innerText=innercontent6;
                 document.getElementById("image").src="{{ six_newsimage }}";
@@ -136,10 +138,10 @@
             
             function mouse_over7(){
                 
-                let keyword7="{{ seven_keyword }}";
-                let innertitle7="{{ seven_title }}"; 
+                let keyword7="{{ seven_keyword|safe }}";
+                let innertitle7="{{ seven_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle7;
-                let innercontent7="{{ seven_content }}"; 
+                let innercontent7="{{ seven_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword7;
                 document.getElementById("content").innerText=innercontent7;
                 document.getElementById("image").src="{{ seven_newsimage }}";
@@ -148,10 +150,10 @@
             
             function mouse_over8(){
                 
-                let keyword8="{{ eight_keyword }}";
-                let innertitle8="{{ eight_title }}"; 
+                let keyword8="{{ eight_keyword|safe }}";
+                let innertitle8="{{ eight_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle8;
-                let innercontent8="{{ eight_content }}"; 
+                let innercontent8="{{ eight_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword8;
                 document.getElementById("content").innerText=innercontent8;
                 document.getElementById("image").src="{{ eight_newsimage }}";
@@ -160,10 +162,10 @@
             
             function mouse_over9(){
                 
-                let keyword9="{{ nine_keyword }}";
-                let innertitle9="{{ nine_title }}"; 
+                let keyword9="{{ nine_keyword|safe }}";
+                let innertitle9="{{ nine_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle9;
-                let innercontent9="{{ nine_content }}"; 
+                let innercontent9="{{ nine_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword9;
                 document.getElementById("content").innerText=innercontent9;
                 document.getElementById("image").src="{{ nine_newsimage }}";
@@ -172,10 +174,10 @@
             
             function mouse_over10(){
                 
-                let keyword10="{{ ten_keyword }}";
-                let innertitle10="{{ ten_title }}"; 
+                let keyword10="{{ ten_keyword|safe }}";
+                let innertitle10="{{ ten_title|safe }}"; 
                 document.getElementById("title").innerText=innertitle10;
-                let innercontent10="{{ ten_content }}"; 
+                let innercontent10="{{ ten_content|safe }}"; 
                 document.getElementById("keyword").innerText=keyword10;
                 document.getElementById("content").innerText=innercontent10;
                 document.getElementById("image").src="{{ ten_newsimage }}";

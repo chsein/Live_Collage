@@ -1,11 +1,6 @@
-,article_link,article_title,keyword,article_summary,img_article,img_y,img,img_x,time
-0,https://www.naver.com/1,1번째 기사 제목,1번째 키워드,1번째 기사 내용,../../../static/img/1_newsimage.jpg,383,../../../static/img/1_new.png,112,2022-08-22 16:16
-1,https://www.naver.com/2,2번째 기사 제목,2번째 키워드,2번째 기사 내용,../../../static/img/2_newsimage.jpg,368,../../../static/img/2_new.png,79,2022-08-22 16:16
-2,https://www.naver.com/3,3번째 기사 제목,3번째 키워드,3번째 기사 내용,../../../static/img/3_newsimage.jpg,285,../../../static/img/3_new.png,233,2022-08-22 16:16
-3,https://www.naver.com/4,4번째 기사 제목,4번째 키워드,4번째 기사 내용,../../../static/img/4_newsimage.jpg,247,../../../static/img/4_new.png,49,2022-08-22 16:16
-4,https://www.naver.com/5,5번째 기사 제목,5번째 키워드,5번째 기사 내용,../../../static/img/5_newsimage.jpg,212,../../../static/img/5_new.png,156,2022-08-22 16:16
-5,https://www.naver.com/6,6번째 기사 제목,6번째 키워드,6번째 기사 내용,../../../static/img/6_newsimage.jpg,179,../../../static/img/6_new.png,222,2022-08-22 16:16
-6,https://www.naver.com/7,7번째 기사 제목,7번째 키워드,7번째 기사 내용,../../../static/img/7_newsimage.jpg,168,../../../static/img/7_new.png,75,2022-08-22 16:16
-7,https://www.naver.com/8,8번째 기사 제목,8번째 키워드,8번째 기사 내용,../../../static/img/8_newsimage.jpg,105,../../../static/img/8_new.png,160,2022-08-22 16:16
-8,https://www.naver.com/9,9번째 기사 제목,9번째 키워드,9번째 기사 내용,../../../static/img/9_newsimage.jpg,78,../../../static/img/9_new.png,232,2022-08-22 16:16
-9,https://www.naver.com/10,10번째 기사 제목,10번째 키워드,10번째 기사 내용,../../../static/img/10_newsimage.jpg,38,../../../static/img/10_new.png,151,2022-08-22 16:16
+keyword,article_link,article_title,article_summary,img,img_x,img_y,img_article,time
+전익수 부실 수사,https://n.news.naver.com/mnews/article/081/0003296712?sid=102,"이예람 특검, 전익수 공군 법무실장 피의자 신분 소환조사",훈련팀은 지난 12일 군인권센터가 성폭력 가해자에 대한 불구속 수사를 지휘한 정황이 담겼다고 폭로한 이른바 '전익수 녹취록'의 원본 파일을 조작한 혐의로 A변호사를 긴급체포했으며 2월 12일까지 혐의 입증이 가능하다고 밝혔다.,../../../static/img/final_img/0.png,97.0,304.0,../../../static/img/article_img/0.png,2022-08-24 17:03
+이준석,https://n.news.naver.com/mnews/article/022/0003728138?sid=100,"이준석, 자필탄원서 당내 비판에 “오매불망 체리따봉이나 기다리시길”","이준석 전 국민의힘 대표는 전날 자신이 법원에 제출한 당 비대위 효력정지 가처분 신청 관련 탄원서 전문을 스스로 공개하며 윤석열 대통령을 ‘절대자’, ‘신군부’에 비유해 논란이 일었던 것을 사과하고, 해당 글에서 스스로를 유승민 대통령이라 비유해 자필탄원서 내용 유출에 대한 논란이 일어나고 있다.",../../../static/img/final_img/3.png,43.0,247.0,../../../static/img/article_img/3.png,2022-08-24 17:03
+손흥민,https://sports.news.naver.com/news.nhn?oid=450&aid=0000086956,"[st&현장] '월드컵 한국 최다골' 박지성 ""손흥민이 내 기록 깼으면""","코 코카콜라가 진행하는 이번 트로피 투어는 '2022 FIFA 카타르 월드컵' 성공 개최 기원을 위해 전 세계 51개국을 방문하는데, 이는 지난 2104년 방문 후 8년 만으로 본선 진출국 중 아시아 최초 방문이다.",../../../static/img/final_img/5.png,204.0,211.0,../../../static/img/article_img/5.png,2022-08-24 17:03
+선우은숙,https://n.news.naver.com/mnews/article/312/0000565508?sid=106,"[종합] 장나라, ♥6살 연하 남편 최초 공개…박원숙 ""너무 잘생겼다"" 감탄 ('같이삽시다')","KBS 방송된 KBS2 예능 ‘박원숙의 같이 삽시다' 에서는 게스트 선우은숙이 신혼여행 중에 장나라로부터 걸려온 영상 전화를 받고 ""행복하게 잘 살아라""며 훈훈하게 훈훈함을 자아냈다.",../../../static/img/final_img/7.png,72.0,143.0,../../../static/img/article_img/7.png,2022-08-24 17:03
+이재명,https://n.news.naver.com/mnews/article/214/0001217786?sid=102,경기남부경찰청 '법인카드 의혹' 배 모 씨 사전구속영장 신청,"경찰이명 김 씨의 수행비서 역할을 했던 전직 경기도 5급 공무원 배모 씨가 이재명 의원이 경기지사를 할 때 김혜경 씨의 개인 물품이나 음식을 경기도 법인카드로 결제해 업무추진비를 유용한 혐의와, 대선 당시 해당 의혹이 사실이 아니라고 부정했다면서 공직선거법상 허위사실 공표 혐의로 사전구속영장을 신청했습니다.",../../../static/img/final_img/8.png,155.0,121.0,../../../static/img/article_img/8.png,2022-08-24 17:03

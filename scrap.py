@@ -161,7 +161,7 @@ def scrapNamuImg(key, path, headers,namuKeyword_kind='person'):
 
     if namuKeyword_kind == 'person':
         # 이미지 이름에 로고에 해당하는 키워드가 들어가 있지 않는 이미지링크들
-        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'dVTtICxy'}) if not il.find_parent('dd') and check_txt_logo(il['alt'], in_=False) ]
+        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'_80UxW8aw'}) if not il.find_parent('dd') and check_txt_logo(il['alt'], in_=False) ]
         for i, link in enumerate(imglink):
             # 각 이미지 링크에 접근
             res=requests.get("https:"+link,headers=headers)
@@ -180,10 +180,10 @@ def scrapNamuImg(key, path, headers,namuKeyword_kind='person'):
         # 보정된 검색어를 가지고오고 소문자를 대문자로 통일
         key_ = soup.find('title').text.replace(' - 나무위키','').upper()
         # 키워드와 로고키워드가 있을 시에
-        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'dVTtICxy'}) if not il.find_parent('dd') and (key_ in  il['alt']) and check_txt_logo(il['alt']) ]
+        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'_80UxW8aw'}) if not il.find_parent('dd') and (key_ in  il['alt']) and check_txt_logo(il['alt']) ]
         if len(imglink) < 1:
             #로고키워드가 있을 시에
-            imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'dVTtICxy'}) if not il.find_parent('dd') and check_txt_logo(il['alt'])]
+            imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'_80UxW8aw'}) if not il.find_parent('dd') and check_txt_logo(il['alt'])]
         for i, link in enumerate(imglink):
             res=requests.get("https:"+link,headers=headers)
             try:
