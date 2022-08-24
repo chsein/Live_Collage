@@ -3,6 +3,9 @@
 모든 학습 및 파일은 Google Colab Pro + 환경에서 구동되도록 구현하였음
 
 ## main.ipynb
+
+![ddd (1)](https://user-images.githubusercontent.com/102151612/186292064-3eed209c-b070-48c9-8c48-a18e55b92f1c.png)
+
 1. 현재 [네이버시그널](https://www.signal.bz/) 에서 제공하는 실시간 검색어를 스크래핑
 
 2. pororo를 활용하여 이미지로 표현하기에 유의미한 키워드를 찾음
@@ -28,6 +31,9 @@
 - 상세 내용은 파일내에 주석으로 작성
 
 ## segmentation folder - human segmentation model에 사용한 ~
+
+![image](https://user-images.githubusercontent.com/102151612/186291825-5ae6f6d2-db7a-4b5b-b0f5-e3d3ce73e58c.png)
+
 - deeplabV3+ 모델을 학습하는데에 사용했던 ipynb파일들
 - visualization.ipynb : 학습결과를 시각화한 파일
 - sample_image : sampleimage들과 그 결과
