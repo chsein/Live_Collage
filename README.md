@@ -2,19 +2,28 @@
 
 모든 학습 및 파일은 Google Colab Pro + 환경에서 구동되도록 구현하였음
 
+
+![시연](https://user-images.githubusercontent.com/102151612/186885409-6919199d-a9dc-4798-97bd-3884df321b5b.mp4)
+
 ## main.ipynb
 
-![ddd (1)](https://user-images.githubusercontent.com/102151612/186292064-3eed209c-b070-48c9-8c48-a18e55b92f1c.png)
+
+![도식화](https://user-images.githubusercontent.com/102151612/186887076-ec0e6c2e-e211-4c57-9603-30408e2275f9.png)
+
 
 1. 현재 [네이버시그널](https://www.signal.bz/) 에서 제공하는 실시간 검색어를 스크래핑
 
-2. pororo를 활용하여 이미지로 표현하기에 유의미한 키워드를 찾음
+2. SENTENCE EMBEDDING -> cossine similarity로 대표기사 선정
 
-3. pororo를 활용하여 실시간 검색어에 해당하는 기사의 내용을 요약
+3. 대표 기사를 이용하여 이슈키워드 도출
 
-4. 2에서 찾은 키워드의 이미지를 나무위키 (인물의 프로필사진 또는 단체의 로고를 고해상도로 제공)에서 스크랩
+4. 대표 기사의 내용을 요약
 
-5. 위 결과물들을 web으로 전송
+5. 3에서 찾은 키워드의 이미지를 나무위키 (인물의 프로필사진 또는 단체의 로고를 고해상도로 제공)에서 스크랩
+
+6. 레이아웃 알고리즘으로 콜라주진행
+
+7. 위 결과물들을 web으로 전송
 
 * 상세내용은 파일내에 주석으로 작성
 
@@ -46,6 +55,10 @@
 - visualization.ipynb : 학습결과를 시각화한 파일
 
 - sample_image : sampleimage들과 그 결과
+
+- training code에 대한 주석은 1. DLv3_base.ipynb에 모두 작성
+
+- weight는 깃용량이 제한으로 구글 드라이브로 공유 [weight](https://drive.google.com/file/d/1ZfHykt-hw3qDvk8GV2qfeGooNc6fu2qx/view?usp=sharing)
 
 - [Crowd Instance-level Human Parsing Dataset](https://arxiv.org/abs/1811.12596) 을 사용하여 약 50000개의 sementic level의 사람 이미지를 학습함
 - [데이터 링크](https://drive.google.com/uc?id=1B9A9UCJYMwTL4oBEo4RZfbMZMaZhKJaz)
