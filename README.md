@@ -3,9 +3,11 @@
 모든 학습 및 파일은 Google Colab Pro + 환경에서 구동되도록 구현하였음
 
 
-![시연](https://user-images.githubusercontent.com/102151612/186885409-6919199d-a9dc-4798-97bd-3884df321b5b.mp4)
+![시연](https://user-images.githubusercontent.com/102151612/186908419-2406ee04-3d4b-4944-9324-09ff0323daea.png)
+
 
 ## main.ipynb
+
 
 
 ![도식화](https://user-images.githubusercontent.com/102151612/186887076-ec0e6c2e-e211-4c57-9603-30408e2275f9.png)
