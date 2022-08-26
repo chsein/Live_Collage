@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from collageapp.views import AboutView
+from collageapp.views import AboutView, home
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', AboutView.as_view(), name='home2'),
+    path('', home, name='home1'),
+    path('about', AboutView.as_view(), name='home2'),
 ]

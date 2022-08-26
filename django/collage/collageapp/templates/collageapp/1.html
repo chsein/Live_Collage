@@ -4,64 +4,87 @@
     <meta charset="UTF-8">
     <title>collage</title>
     <link rel="stylesheet" href="../../../static/css/1.css">
+    <link href='http://www.openhiun.com/hangul/nanumbarungothic.css' rel='stylesheet' type='text/css'>
 </head>
-<body bgcolor="black">
-    <h1 id="clock">{{ time }}</h1>
-    
+<body bgcolor="white" style="overflow-y: hidden">
+
+
+
     <div class="wrapper">
-        <div id="collage-container">
-          {% if one_link %}
-            <a href="{{ one_link }}"><img id="collage-one" src="{{ one_image }}" style="left:{{ one_left }}px; top:{{ one_top }}px;"  onmouseover="mouse_over1()" onmouseout="mouse_out() "></a>
-          {% endif %}
 
-          {% if two_link %}
-            <a href="{{ two_link }}"><img id="collage-two" src="{{ two_image }}" style="left:{{ two_left }}px; top:{{ two_top }}px;" onmouseover="mouse_over2()" onmouseout="mouse_out()" ></a>
-          {% endif %}
 
-          {% if three_link %}
-            <a href="{{ three_link }}"><img id="collage-three" src="{{ three_image }}" style="left:{{ three_left }}px; top:{{ three_top }}px;" onmouseover="mouse_over3()" onmouseout="mouse_out()" ></a>
-          {% endif %}  
+        <div id="collage-top">
+            </br>
+            <h1 id="clock" style="font-family: 'Nanum Barun Gothic', sans-serif;">{{ time }}</h1>
+            <h5 style="font-family: 'Nanum Barun Gothic', sans-serif; color:#25c185; font-size: 17px">해당 시간 기준 사용자가 가장 많이 검색한 키워드 입니다.</h5>
 
-          {% if four_link %}
-            <a href="{{ four_link }}"><img id="collage-four" src="{{ four_image }}" style="left:{{ four_left }}px; top:{{ four_top }}px;" onmouseover="mouse_over4()" onmouseout="mouse_out()"></a>
-          {% endif %}
-          
-          {% if five_link %}
-            <a href="{{ five_link }}"><img id="collage-five" src="{{ five_image }}" style="left:{{ five_left }}px; top:{{ five_top }}px;" onmouseover="mouse_over5()" onmouseout="mouse_out()"></a>
-          {% endif %}
-          
-          {% if six_link %}
-            <a href="{{ six_link }}"><img id="collage-six" src="{{ six_image }}" style="left:{{ six_left }}px; top:{{ six_top }}px;" onmouseover="mouse_over6()" onmouseout="mouse_out()"></a>
-          {% endif %}
-          
-          {% if seven_link %}
-            <a href="{{ seven_link }}"><img id="collage-seven" src="{{ seven_image }}" style="left:{{ seven_left }}px; top:{{ seven_top }}px;" onmouseover="mouse_over7()" onmouseout="mouse_out()"></a>
-          {% endif %}
-          
-          {% if eight_link %}
-            <a href="{{ eight_link }}"><img id="collage-eight" src="{{ eight_image }}" style="left:{{ eight_left }}px; top:{{ eight_top }}px;" onmouseover="mouse_over8()" onmouseout="mouse_out()"></a>
-          {% endif %}
-          
-          {% if nine_link %}
-            <a href="{{ nine_link }}"><img id="collage-nine" src="{{ nine_image }}" style="left:{{ nine_left }}px; top:{{ nine_top }}px;" onmouseover="mouse_over9()" onmouseout="mouse_out()"></a>
-          {% endif %}
-          
-          {% if ten_link %}
-            <a href="{{ ten_link }}"><img id="collage-ten" src="{{ ten_image }}" style="left:{{ ten_left }}px; top:{{ ten_top }}px;" onmouseover="mouse_over10()" onmouseout="mouse_out()"></a>
-          {% endif %}
+            <div id="collage-container">
+              {% if one_link %}
+                <a href="{{ one_link }}"><img id="collage-one" src="{{ one_image }}" style="left:{{ one_left }}px; top:{{ one_top }}px;" title="{{ one_rank }}"  onmouseover="mouse_over1()"></a>
+              {% endif %}
+
+              {% if two_link %}
+                <a href="{{ two_link }}"><img id="collage-two" src="{{ two_image }}" style="left:{{ two_left }}px; top:{{ two_top }}px;" title="{{ two_rank }}"  onmouseover="mouse_over2()" ></a>
+              {% endif %}
+
+              {% if three_link %}
+                <a href="{{ three_link }}"><img id="collage-three" src="{{ three_image }}" style="left:{{ three_left }}px; top:{{ three_top }}px;" title="{{ three_rank }}"  onmouseover="mouse_over3()" ></a>
+              {% endif %}  
+
+              {% if four_link %}
+                <a href="{{ four_link }}"><img id="collage-four" src="{{ four_image }}" style="left:{{ four_left }}px; top:{{ four_top }}px;" title="{{ four_rank }}"  onmouseover="mouse_over4()"></a>
+              {% endif %}
+              
+              {% if five_link %}
+                <a href="{{ five_link }}"><img id="collage-five" src="{{ five_image }}" style="left:{{ five_left }}px; top:{{ five_top }}px;" title="{{ five_rank }}"  onmouseover="mouse_over5()"></a>
+              {% endif %}
+              
+              {% if six_link %}
+                <a href="{{ six_link }}"><img id="collage-six" src="{{ six_image }}" style="left:{{ six_left }}px; top:{{ six_top }}px;" title="{{ six_rank }}"  onmouseover="mouse_over6()"></a>
+              {% endif %}
+              
+              {% if seven_link %}
+                <a href="{{ seven_link }}"><img id="collage-seven" src="{{ seven_image }}" style="left:{{ seven_left }}px; top:{{ seven_top }}px;" title="{{ seven_rank }}"  onmouseover="mouse_over7()"></a>
+              {% endif %}
+              
+              {% if eight_link %}
+                <a href="{{ eight_link }}"><img id="collage-eight" src="{{ eight_image }}" style="left:{{ eight_left }}px; top:{{ eight_top }}px;" title="{{ eight_rank }}"  onmouseover="mouse_over8()"></a>
+              {% endif %}
+              
+              {% if nine_link %}
+                <a href="{{ nine_link }}"><img id="collage-nine" src="{{ nine_image }}" style="left:{{ nine_left }}px; top:{{ nine_top }}px;" title="{{ nine_rank }}"  title="{{ one_rank }}"  onmouseover="mouse_over9()"></a>
+              {% endif %}
+              
+              {% if ten_link %}
+                <a href="{{ ten_link }}"><img id="collage-ten" src="{{ ten_image }}" style="left:{{ ten_left }}px; top:{{ ten_top }}px;" title="{{ ten_rank }}"  onmouseover="mouse_over10()"></a>
+              {% endif %}
+            </div>
+                
         </div>
-        
-        <div id="cardnews-container" style="visibility:hidden; width:500px; height:500px;" >
-             <p id ="keyword"></p>
-             <p id ="title"></p>
-             <img id="image" src="../../../static/img/final_img/0.png">
-             <p id ="content"></p>
-        </div>
+
+
+        <div id="cardnews-top">
+
+            <h1 style="font-family: 'font1'; font-size: 60px"><img src="../../../static/img/signal_logo.png"></h1>
+            <h3>원하는 소식을 가장 빠르고 정확하게 전달해드립니다.</h3>
+            <h3 id="cardnews-explanation">궁금한 키워드에 마우스를 올려보세요</h3>
+
+            <div id="cardnews-container" style="visibility:hidden; width:500px; height:700px;" >
+                 <p id ="keyword"></p>
+                 <p id ="title"></p>
+                 <img id="image" src="3_new.png">
+                 <p id ="content" style="text-align:left"></p>
+            </div>
+        <div>
 
 
 
         <script type="text/javascript">
             
+           
+
+
+
             function mouse_over1(){
                 let keyword1="{{ one_keyword|safe }}";
                 let innertitle1="{{ one_title|safe }}";                
@@ -71,6 +94,7 @@
                 document.getElementById("content").innerText=innercontent1;
                 document.getElementById("image").src="{{ one_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
 
 
@@ -85,6 +109,7 @@
                 document.getElementById("content").innerText=innercontent2;
                 document.getElementById("image").src="{{ two_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
 
             function mouse_over3(){
@@ -97,6 +122,7 @@
                 document.getElementById("content").innerText=innercontent3;
                 document.getElementById("image").src="{{ three_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
 
             function mouse_over4(){
@@ -109,6 +135,7 @@
                 document.getElementById("content").innerText=innercontent4;
                 document.getElementById("image").src="{{ four_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
 
             function mouse_over5(){
@@ -121,6 +148,7 @@
                 document.getElementById("content").innerText=innercontent5;
                 document.getElementById("image").src="{{ five_newsimage }}";   
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
 
             
@@ -134,6 +162,7 @@
                 document.getElementById("content").innerText=innercontent6;
                 document.getElementById("image").src="{{ six_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
             
             function mouse_over7(){
@@ -146,6 +175,7 @@
                 document.getElementById("content").innerText=innercontent7;
                 document.getElementById("image").src="{{ seven_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
             
             function mouse_over8(){
@@ -158,6 +188,7 @@
                 document.getElementById("content").innerText=innercontent8;
                 document.getElementById("image").src="{{ eight_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
             
             function mouse_over9(){
@@ -170,6 +201,7 @@
                 document.getElementById("content").innerText=innercontent9;
                 document.getElementById("image").src="{{ nine_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
             
             function mouse_over10(){
@@ -182,12 +214,10 @@
                 document.getElementById("content").innerText=innercontent10;
                 document.getElementById("image").src="{{ ten_newsimage }}";
                 document.getElementById("cardnews-container").style.visibility ='visible';
+                document.getElementById("cardnews-explanation").remove();
             }
             
-            function mouse_out(){
 
-                document.getElementById("cardnews-container").style.visibility ='hidden';
-            }
 
 
         </script>

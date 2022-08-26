@@ -161,7 +161,7 @@ def scrapNamuImg(key, path, headers,namuKeyword_kind='person'):
 
     if namuKeyword_kind == 'person':
         # 이미지 이름에 로고에 해당하는 키워드가 들어가 있지 않는 이미지링크들
-        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'_80UxW8aw'}) if not il.find_parent('dd') and check_txt_logo(il['alt'], in_=False) ]
+        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'XBliG7hv'}) if not il.find_parent('dd') and check_txt_logo(il['alt'], in_=False) ]
         for i, link in enumerate(imglink):
             # 각 이미지 링크에 접근
             res=requests.get("https:"+link,headers=headers)
@@ -175,15 +175,16 @@ def scrapNamuImg(key, path, headers,namuKeyword_kind='person'):
                     print(res.url)
                     if path:
                         urlopen_img.save(path,'png')
+                    return urlopen_img
                     break
     else :
         # 보정된 검색어를 가지고오고 소문자를 대문자로 통일
         key_ = soup.find('title').text.replace(' - 나무위키','').upper()
         # 키워드와 로고키워드가 있을 시에
-        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'_80UxW8aw'}) if not il.find_parent('dd') and (key_ in  il['alt']) and check_txt_logo(il['alt']) ]
+        imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'XBliG7hv'}) if not il.find_parent('dd') and (key_ in  il['alt']) and check_txt_logo(il['alt']) ]
         if len(imglink) < 1:
             #로고키워드가 있을 시에
-            imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'_80UxW8aw'}) if not il.find_parent('dd') and check_txt_logo(il['alt'])]
+            imglink = [il['src'] for il in soup.find_all('img', attrs={'class':'XBliG7hv'}) if not il.find_parent('dd') and check_txt_logo(il['alt'])]
         for i, link in enumerate(imglink):
             res=requests.get("https:"+link,headers=headers)
             try:
@@ -192,38 +193,44 @@ def scrapNamuImg(key, path, headers,namuKeyword_kind='person'):
                 print(res.url)
                 if path:
                     urlopen_img.save(path,'png')
+                return urlopen_img
                 break
             except:
                 urlopen_img = Image.open(BytesIO(res.content))
                 print(res.url)
                 if path:
                     urlopen_img.save(path,'png')
+                return urlopen_img
                 break
 
 def save_article_img(url, headers, save_path, height=300, width=500):
     '''
     네이버 뉴스기사에 있는 이미지를 스크래핑하고 좌우로 원하는 사이즈에 맞게 높이를 맞추고 설정한 너비만큼은 검정색으로 패딩하는 함수
-
+    
     url : str / 스크랩할 이미지가 있는 뉴스의 주소  
     headers : dict / 유저 에이전트 정보가 담겨있는 딕셔너리
     save_path : str / 이미지가 저장될 위치
     height : int / 리턴될 이미지의 높이
     width : int / 리턴될 이미지의 너비
-    '''
     
+    '''  
     try:
         res = requests.get(url,headers=headers) 
         soup = BeautifulSoup(res.text,"html.parser") 
         # 뉴스의 종류에 따라 달라지는 페이지 형식을 적용하기위함
         newstype = res.url.split('.')[0].split('//')[-1]
         if newstype == 'sports' :
-            img_url = soup.find('span', attrs = {'class':'end_photo_org'}).img['src']
+            a = soup.find('span', attrs = {'class':'end_photo_org'})
+            if a:
+                img_url = a.img['src']
 
         else:
-            try:
-                img_url = soup.find('img', attrs = {'id':'img1'})['data-src']
-            except:
-                img_url = soup.find('img', attrs = {'id':'img1'})['src']
+            a = soup.find('img', attrs = {'id':'img1'})
+            if a: 
+                try:
+                    img_url = a['data-src']
+                except:
+                    img_url = a['src']
         img_res = requests.get(img_url,headers=headers)
         tmp_img = Image.open(BytesIO(img_res.content))
         tmp_img = np.array(tmp_img)
@@ -247,16 +254,20 @@ def save_article_img(url, headers, save_path, height=300, width=500):
             elif(h_y < 0):
                 h_y = 0
 
-            M = np.float32([[1,0,w_x], [0,1,h_y]])  #(2*3 이차원 행렬)
-            img_re = cv2.warpAffine(resized, M, (width, height))
+            # M = np.float32([[1,0,w_x], [0,1,h_y]])  #(2*3 이차원 행렬)
+            # img_re = cv2.warpAffine(resized, M, (width, height))
+            pad = np.ones((height,int(w_x),3))*232
+            img_re = np.hstack([pad, resized, pad])
+        img_re = img_re.astype(np.float32)
         img_re = cv2.cvtColor(img_re, cv2.COLOR_BGR2RGB)
+        print(img_url)
         cv2.imwrite(save_path,img_re)
         return img_re
-    # 기사에 이미지가 없을시 검은 이미지를 리턴
+
     except:
-        background = np.zeros((width, height, 3))
-        cv2.imwrite(save_path,background)
-        return background
+        bg = np.ones((height, width, 3)) * 232 
+        cv2.imwrite(save_path,bg)
+        return bg
 
 
 
