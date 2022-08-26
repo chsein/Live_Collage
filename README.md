@@ -6,6 +6,9 @@
 ![시연](https://user-images.githubusercontent.com/102151612/186908419-2406ee04-3d4b-4944-9324-09ff0323daea.png)
 
 
+- 카드뉴스의 형식으로 기사의 타이틀과 요약문제공
+- 왼쪽 콜라주에 마우스를 오버하면 우측 기사가 
+
 ## main.ipynb
 
 
