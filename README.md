@@ -2,6 +2,12 @@
 
 모든 학습 및 파일은 Google Colab Pro + 환경에서 구동되도록 구현하였음
 
+## Directory Structure
+'''c
+
+
+'''
+
 
 ![시연](https://user-images.githubusercontent.com/102151612/186908419-2406ee04-3d4b-4944-9324-09ff0323daea.png)
 
