@@ -3,11 +3,24 @@
 모든 학습 및 파일은 Google Colab Pro + 환경에서 구동되도록 구현하였음
 
 ## Directory Structure
-'''c
+```
 
-
-'''
-
+┣segmentation
+┃ ┣ sample_image
+┃ ┣ 0.test.ipynb
+┃ ┣ 1. DLv3_base.ipynb
+┃ ┣ 2. DL_v3+unfreeze_adam0.01_train.ipynb
+┃ ┣ 3. DL_v3+unfreeze_sgd0.01_train.ipynb
+┃ ┣ 4. DL_v3+freezed_sgd0.01_train.ipynb
+┃ ┣ 5. DL_v3+trainableTure_sgd0.001_train.ipynb
+┃ ┣ 6. DL_v3+unfreeze_sgd0.01+seblock_train.ipynb
+┃ ┣ 7. Last_fulltrain.ipynb
+┗ ┗ model_visualization.ipynb
+┣arrange.py
+┣scrap.py
+┣seg.py
+```
+---
 
 ![시연](https://user-images.githubusercontent.com/102151612/186908419-2406ee04-3d4b-4944-9324-09ff0323daea.png)
 
