@@ -2,6 +2,55 @@
 # Visual Caster
 
 
+모든 코드는 colab pro + 환경에서 작성 되었습니다.
+
+┣segmentation
+┃ ┣ sample_image
+┃ ┃	┣ result : 샘플이미지 폴더에 있는 이미지들의 세그멘테이션 결과이미지
+┃ ┃	┗ *.jpg : 세그멘테이션 이전 이미지
+┃ ┣ model_weight 
+┃ ┃	┣ full_weight.h5 : 최종 서비스에 활용한 모델파일
+┃ ┃	┗ 타 학습에 사용했던 모델들은 파일의 크기를 고려하여 따로 첨부하지 않음
+┃ ┣ data : segmentation에서 모델학습에 활용된 이미지들
+┃ ┃ 	┗ rawdata 
+┃ ┃ 		┣ fashion : ICCV15 Fashion_Dataset(ATR)
+┃ ┃		┗ humanparsing :Instance-LevelHuman-Parsing  
+┃ ┃		 full 데이터 링크 https://drive.google.com/uc?id=1B9A9UCJYMwTL4oBEo4RZfbMZMaZhKJaz
+┃ ┃		 각 폴더에는 필요없는 데이터를 제거하고 큰 용량을 고려해 샘플이미지 10장씩 만을 저장해두었음
+┃ ┃
+┃ ┃	** 이 아래로 레이블링이 되어있는 ipynb 파일들은 모델을 학습 - 테스트하는데에 사용된 파일입니다. 
+┃ ┃         주석은 겹치는 경우가 많기때문에 1. 에해당하는 파일에만 주석을 달아 놓았습니다
+┃ ┣ 0-1.test_DL_v3plus.ipynb
+┃ ┣ 0-2.test_FCN.ipynb
+┃ ┣ 0-3.test_Unet	.ipynb		
+┃ ┣ 1-1. DLv3_base.ipynb
+┃ ┣ 1-2.FCN.ipynb
+┃ ┣ 1-3.Unet.ipynb	
+┃ ┣ 2-1. DL_v3+freezed_sgd0.01_train.ipynb
+┃ ┣ 2-2. DL_v3+trainableTure_sgd0.001_train.ipynb
+┃ ┣ 2-3. DL_v3+unfreeze_sgd0.01_train.ipynb
+┃ ┣ 3-1. DL_v3+unfreeze_adam0.01_train.ipynb
+┃ ┣ 4-1. DL_v3+unfreeze_sgd0.01+seblock_train.ipynb
+┃ ┣ 5. Last_fulltrain.ipynb
+┃ ┣ 6. model_visualization.ipynb
+┃ ┣ 7. Last_fulltrain.ipynb
+┃ ┗ model_visualization.ipynb : 모델의 결과 시각화
+┃
+┣ django : python 내의 웹실행에 필요한 파일들을 담고있습니다.
+┃
+┣ result : main 실행시에 스크래핑 파일들이 저장될 경로입니다.
+┃
+┣ arrange.py : 이미지들의 배치에 사용되는 함수들
+┣ scrap.py : 데이터스크래핑에 사용되는 함수들
+┣ seg.py : 학습된 모델을 사용하여 이미지를 foward시키고 후처리하는 함수들
+┗ main.ipynb
+    - 서비스를 실행하는데에 사용된 파일입니다. 구글 코랩프로+를 기준으로 작성되어있으며 내부에 필요한 패키지 설치에 대한 
+      코드 또한 포함합니다.
+    - 경로들은 오류를 방지하여 절대경로와 상대경로가 혼용되어있습니다. 절대경로의 경우 사용자의 설정에 맞게 변경하는 과정이 필요합니다.
+    - 데이터 스크래핑이 포함된 코드이기때문에 headers 딕셔너리 내의 user-agent 정보는 컴퓨터 환경에 맞게 변경하는 과정이 필요합니다.
+    - 셀의 마지막 링크를 누르면 구현한 웹화면으로 이동합니다
+
+
 ## 1. 아이디어 배경
 ### 1) 왜 '시각화'인가?
 
