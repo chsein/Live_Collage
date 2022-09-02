@@ -117,6 +117,197 @@ Raw 데이터의 목적은 사람이 착용하는 의류별로 segmentation하�
 4) 반전 - 이미지를 50%의 확률로 좌우 반전을 하였으며, 상하반전은 하지 않았습니다.
 5) 회전 - 이미지를 –15도에서 15도 사이에서 임의로 회전을 시켜주었습니다.
 
+##### 서비스 제공과정
+
+![image](https://user-images.githubusercontent.com/105573554/188048257-13cda034-bb03-4a16-8079-31b6ea6f3a4d.png)
+
+
+## 6. Deeplab V3+
+실시간 검색어의 주를 이루는 키워드는 인물이기에 인물을 segmentation 후 이미지를 배치하여 보여주고자 하였습니다. 이에 여러 실험을 통해 segmentation모델인 Deeplab v3 +를 선택하였고 간단한 실험을 통하여 모델을 트레이닝 시켰습니다.
+
+DeeplabV3+ 에서는 여러 rate의 Atrous conv을 사용해 다양한 크기의 receptive field를 확인하는 ASPP(Atrous Spatial Pyramid Pooling)를 활용하였습니다. 그리고 인코더 디코더 구조를 차용함으로써 ASPP로 추출한 피처맵을 다시 확장하여 픽셀단위의 개체예측을 실시하였습니다.
+![image](https://user-images.githubusercontent.com/105573554/188047063-fa6b8199-27d3-4619-97cd-e37e6cea73d1.png)
+
+### 1) Segmentation 모델의 선택
+![image](https://user-images.githubusercontent.com/105573554/188047163-20981b30-8b58-4812-aee9-945e259b73d9.png)
+
+Segmentation 모델의 구축을 위해 FCN8과U net, Deeplab v3+ 을 비교해보았습니다. Train 셋과 validation 셋에 대하여 loss를 비교해본 결과,  FCN8과 U net에 비해 Deeplab v3+가 이상적으로 줄어드어 채택하게 되었습니다.
+
+### 2) backbone 모델의 선택
+![image](https://user-images.githubusercontent.com/105573554/188047252-c88403a0-9778-4d2f-a98d-392af3bd14af.png)
+
+일반적인 deeplab v3 plus 에서는 backbone으로 res-net / xception 모델을 주로 이용합니다.
+
+본 조는 그 보다 더 발전한 CNN모델인 EfficientNet을 backbone으로 변경하였습니다. 실시간으로 세그멘테이션이 이루어지는 본 프로젝트에 특성상 forward 시간이 오래 걸리는 큰 모델은 사용하지 못했습니다. 이에 몇 가지 실험을 통해 어느 정도의 성능을 가지고 적절한 속도를 가지는 EfficientNetV2M의 image net pretrained model을 backbone으로 사용하여 transfer leaning 했습니다.
+
+각 레이어의 Feature map의 크기가 맞는 위치의 레이어를 추출하여 deeplabV3+의 레이어로 사용하도록 했습니다.
+
+### 3) backbone 모델의 파인튜닝 여부
+
+앞 단의 backbone 모델을 튜닝할 것인지, 튜닝하지 않고 그대로 사용할지에 대한 실험을 실시하였습니다. 
+
+실험시에는 sgd optimizer를 사용하였고 learning rate decay를 적용한 상태로 실험을 실시하였습니다.
+
+#### ① backbone freeze + learning rate 0.01
+
+backbone 모델을 학습이 불가능한 상태로 고정을 하고 backbone에서 미리 학습된 필터와 feature map을 그대로 사용하도록 하였습니다. 대신 ASPP와 그 이후의 conv layer들이 빠르게 학습될 수 있도록 learning rate을 0.01로 설정하여 학습하였습니다.
+
+#### ② backbone unfreeze + learning rate 0.001
+
+처음부터 backbone을 학습이 가능한 상태로 두고 학습을 하였습니다. pre-train 된 layer들이 과도하게 조정되어 pre-train의 의미를 잃지 않도록 learning rate를 0.001로 두어 학습하였습니다.
+
+#### ③ backbone freeze + learning rate 0.01 -> 0.001
+
+①, ② 두가지 개념을 모두 적용하였습니다. 처음에는 backbone을 학습 불가능하게 하고 타layers를 빠르게 학습되게끔 learning rate을 0.01로 적용하여 학습하였습니다.
+
+학습도중 loss가 정해 놓은 epoch 동안 줄어들지 않으면, 학습이 불가능했던 backbone모델의 layers를 학습 가능하게 변경하고 learning rate을 0.001로 조정하여 학습하였습니다.
+
+
+![image](https://user-images.githubusercontent.com/105573554/188047613-3175e68e-fe4c-4182-930e-441a928ecd10.png)
+
+50000개의 이미지 중 5000개를 val set으로 활용하여 실험을 실시한 결과 
+
+①의 경우 빠르게 수렴하나 학습을 거듭할수록 val loss가 증가하는 과적합이 빠르게 일어나는 것을 확인하였고 ②의 경우 backbone val loss가 크게 흔들리는 것을 확인하였습니다. 그에 반해 3)의 경우는 val loss가 조금씩 증가하고 있지만 그 정도가 크지 않고 train loss 또한 안정적으로 줄고 있는 모습을 보였습니다. 이 실험 결과 ③의 방법을 택하여 모델을 학습하기로 결정하였습니다.
+
+### 4) optimizer tuning
+
+optimizer는 보편적으로 사용하는 Adam과 momentum을 적용한 sgd를 같이 비교하였습니다.
+
+두 optimizer 모두 앞에서 설명한 val loss가 줄어들지 않으면 backbone을 unfreezing 하는 방법으로 learning rate을 0.01에서 0.001로 적용되게 하였고 learning rate decay를 적용한 상태로 실험을 실시하였습니다.
+
+![image](https://user-images.githubusercontent.com/105573554/188047864-68feebbb-e875-4162-af4f-add78796a943.png)
+
+Adam의 경우 빠르게 학습되지만 과적합이 크게 발생하는 것을 확인할 수 있었고 sgd의 경우
+val loss가 안정적으로 줄어들었습니다. 이에 momentum을 적용한 sgd를 optimizer로 선택하였습니다.
+
+
+### 5) SE-block
+![image](https://user-images.githubusercontent.com/105573554/188047970-dcb1aae3-faf6-4c99-8e00-9e81dfdd8c0a.png)
+
+SE-block은 채널 간의 상호작용을 학습한 뒤, 그 정보를 사용해 채널 단위로 가중치를 학습하여 성능 향상을 이끌어냈습니다. 
+
+이는 자연어의 attention개념이라고 볼 수도 있습니다. SE-block은 유연하고 다양하게 적용가능 하고 많은 추가 연산양 없이 CNN모델의 성능을 이끌어 낼 수 있는 방법입니다. SE-block의 개념을 본 모델의 ASPP이후에 적용하여 성능의 향상을 꾀하였습니다.
+
+![image](https://user-images.githubusercontent.com/105573554/188048002-07c1086c-0d4d-48ca-9358-1a96af2c83b2.png)
+
+근소한 차이지만 SE-block을 적용한 것이 성능이 좀 더 좋았습니다. (best val loss 0.1199 / 0.1193)
+이에 최종모델에도 SE-block을 적용하였습니다.
+
+### 6) 최종모델
+위의 실험결과를 반영하여 50000개의 이미지를 모두 trainset 학습하였습니다. 
+
+![image](https://user-images.githubusercontent.com/105573554/188048055-d4312de0-0e76-4754-9915-97da5fb4c24d.png)
+
+이와 같은 실험 결과들을 반영하여 최종 모델 학습에 있어서 Deeplab V3 +와 Efficient netV2M를 사용하였고, sgd 옵티마이저를 적용하며 백본을 초반에 프리징 하였다 후에 언프리징 하는 방식을 채택하였습니다. 또한, SE-block을 추가 적용하여 학습하였습니다.
+
+### 7) 결과 시각화
+![image](https://user-images.githubusercontent.com/105573554/188048095-0c4bb308-e122-46f1-8a1b-ee0f16acb626.png)
+
+실험 결과를 반영한 최종 모델을 통한 Segmentation의 결과를 비교해 보았을 때 모델이 안정적으로 학습된 결과를 확인할 수 있었습니다. 과한 패턴이 옷에 있거나 배경과 옷의 색이 명확히 구분되지 않는 경우를 제외한다면 인물을 훌륭하게 추출하는 것을 확인할 수 있습니다.
+
+### 8) 결과 후처리
+
+데이터 수집에서 언급하였듯이 수집한 데이터에 한계가 있었고 이에 모델을 통과한 결과에 약간의 후처리를 실시하였습니다.  데이터 셋에서 액세서리를 제외한 마스킹을 제공하기 때문에 후처리를 하지 않은 결과물에서는 시계부분을 마스킹하지 못하는 것을 확인할 수 있습니다. 이에 cv2의 find contour를 적용하여 contour안의 contour, 즉 마스킹 안에 구멍처럼 비워진 부분을 채우도록 하여 후처리 하였습니다. 
+
+![image](https://user-images.githubusercontent.com/105573554/188048159-eb9e5793-2f78-4089-b571-abb2f12bdd07.png)
+
+위의 이미지와 같이 오른쪽에서 시계를 마스킹하지 못하였던 것을 후처리를 통하여 보완해주었습니다.
+
+## 7. 이슈 키워드 추출 및 기사요약
+
+![image](https://user-images.githubusercontent.com/105573554/188048210-74e285a5-251f-49d9-b66a-5cfbdc49c2aa.png)
+
+해당 과정에서는 카카오 브레인에서 다양한 자연어 태스크에 대응 가능한 통합된 형태의 오픈소스 자연어 프레임워크 PORORO(Platform Of neuRal mOdels for natuRal language processing)를 사용하였습니다.
+
+### 1) 네이버 시그널 검색어 스크래핑
+![image](https://user-images.githubusercontent.com/105573554/188048332-f9973186-05a8-41c5-98bb-1061cf9c4578.png)
+
+현 시간의 네이버실시간 검색어를 제공하는 네이버 시그널의 검색어 정보를 크롤링하여 가져왔고 각 검색어에 해당하는 기사들 또한 정해진 숫자만큼 크롤링하였습니다. 기사는 특수문자를 제거한 이후 350자가 넘는 기사들을 대상으로만 크롤링 진행하였으며 검색어당 8개의 기사를 크롤링하였습니다.
+
+### 2) SENTENCE EMBEDDING - 대표기사선정
+
+뉴스제목들 간의 Sentence Embedding을 통해 대표기사를 설정하였습니다.
+
+8개의 기사를 가지고 왔을 때 Sentence Embedding을 각 기사의 제목에 실시하였습니다. 이 후 각기사들과 타 기사들 간의 cosine similarity를 계산하여 cosine similarity가 가장 높은 기사는 다른 기사와 유사하다고 판단했습니다. 즉 해당 검색어가 실시간 검색어에 선정된 이유와 가장 밀접한 기사라고 할 수 있는 기사라고 가정하고 해당 기사를 대표기사로 선정하였습니다.
+
+### 3) NER (개체명 인식)
+
+![image](https://user-images.githubusercontent.com/105573554/188048436-b90ed19e-9cdb-4a54-9299-beafa69dad76.png)
+
+예를 들어 위의 이미지를 보면 ‘솔로’이라는 실시간 검색어의 대표기사의 제목에 NER을 실시하여 유의미한 이슈 키워드를 도출해냅니다.
+
+키워드 도출에 있어서 검색어 -> 대표기사 제목 -> 대표기사 요약문(4)에서 설명)을 활용하였으며 키워드가 여러가지 도출되었을 경우에는 person -> organization -> artifact (드라마 영화 작품 등)의 우선순위로 이슈 키워드를 선정하였습니다.
+
+
+### 4) 기사 요약문 생성
+
+2) 에서 선정한 대표기사의 본문을 대상으로 TEXT SUMMARIZATION을 실시하여 최종 결과물에 사용될 수 있도록 하였습니다. 요약은 PORORO 패키지 중 TEXT SUMMARIZATION 모델의 abstractive 방식을 사용하였고 기사 원문의 길이와 요약문의 가독성 등을 고려하여 하이퍼 파라미터 값은 beam=5, len_penalty=3, no_repeat_ngram_size=3, top_k=50, top_p=0.7, temperature=1.5로 조정하여 요약문을 추출하였습니다. 
+
+![image](https://user-images.githubusercontent.com/105573554/188048480-313b9674-af1e-415a-8f0a-88e56b90a25e.png)
+
+
+### 5) 대상 이미지 스크래핑
+
+![image](https://user-images.githubusercontent.com/105573554/188048499-37874b57-2792-4959-a010-39099e7e1525.png)
+
+나무위키 사이트 (고해상도 프로필 혹은 로고사진을 제공)에 3)에서 선정한 이슈 키워드를 검색하여 나오는 인물의 사진 혹은 단체나 작품의 사진을 스크래핑하여 이슈 키워드를 시각화 하는 데에 사용하였습니다.
+
+## 8. 이미지 배치 방안
+
+7-5) 에서 스크래핑한 이미지들은 ①단체나 지역, 창작물들의 포스터 / ②인물로 구성됩니다 ②인물의 경우 segmentation model을 통과하게 하였고 ①의 경우에는 이미지 그 자체를 사용하였습니다.
+
+![image](https://user-images.githubusercontent.com/105573554/188048572-60e4f3cc-a2d8-43de-8869-dc2f8fa1ce77.png)
+
+### 1) 사이즈 조정
+
+먼저 사람의 전신 이미지가 들어올 경우에는 cv2에서 제공하는 얼굴인식모델을 사용하여 얼굴부분이 상단으로 가게 crop하여 얼굴이 보일 수 있도록 하였습니다. ①의 경우 가로와 세로의 길이가 2배이상 차이 날 경우 2배이상 큰 면을 잘라내어 2배 사이즈가 되게 조정하였습니다. (ex 400*100의 이미지를 200*100의 이미지로)
+
+segmentation된 이미지 크기가 Background size의 1/7 이 되도록 크기 조정을 해준 뒤, 검색어 순위에 맞게 한 번 더 적용하여 크기를 결정하였습니다. ①은 순위정보를 반영하지 않고 크기를 통일하였습니다.
+
+### 2) 배치 가중치 생성
+
+#### - 이슈 이미지의 점수
+
+이미지를 배치하게 되면 자연스럽게 겹치는 부분이 생기게 됩니다. 이에 본 조는 이미지의 가리면 안 되는 부분(인물의 얼굴)을 설정하여 가중치를 주었습니다. 1)에서 인물의 경우 얼굴이 상단에 배치가 되게 하였기에 상단 1/2지점(Important region)은 가중치를 10으로 하단 1/2지점(Other region)은 1을 넣어주었습니다.
+
+![image](https://user-images.githubusercontent.com/105573554/188048830-805a0f55-0fd8-4d98-b9f6-c9782bed450f.png)
+
+①의 경우 배치되는 위치에 따라 오른쪽이라면 좌측하단의 가중치가 1이되게 나머지 부분은 10이 되도록, 좌측이라면 우측상단이 1/나머지가 10이 되도록 위치에 따라 조정되도록 설정하였습니다. 
+
+#### - Background Score
+
+위의 이미지처럼 상하를 기준으로 중앙부분에는 (하늘색) -1 이외의 부분은 0을 점수로 설정하였습니다.
+
+
+### 3) 순위에 맞는 초기 위치 배치
+
+** 평가 지표
+
+![image](https://user-images.githubusercontent.com/105573554/188048947-add817fb-75b4-4ff1-a542-0bb0e5a87ae1.png)
+
+각 픽셀당 2)에서 정의한 점수를 구했습니다. 우측 상단의 이미지처럼 이미지가 겹친 경우에는 해당 위치의 점수들을 더하여 pixel score를 구했습니다.
+
+Index score는 이미지의 중요한 부분이 많이 겹칠 경우에는 큰 페널티를 주도록 하였습니다. 위의 수식을 이용하면 이미지의 배치 상태에 대해서 arrange 스코어를 구할 수 있습니다.  
+
+![image](https://user-images.githubusercontent.com/105573554/188048973-0c830edc-e30c-4323-ad44-0bb70fe28f7e.png)
+
+arrange score를 이용한다면 중요부분이 많이 겹치지 않은 좌측 이미지가 많이 겹친 우측에 비해 더 높은 arrange score를 가질 것이고 이는 더 배치가 잘되었음을 의미합니다.
+
+
+### 4) Neigbor와 current state 비교를 통한 Final state 반환
+
+1위와 10위를 고정한 채로 나머지 이미지를 상하 좌우로 정해 놓은 픽셀만큼 이동했을 때를 Neigbor state라고 정의했습니다. Current state와 Neigbor state의 arrange score를 확인한 뒤 더 좋은 점수를 가지는 상태를 선택하였습니다. 이 과정을 반복하여 현재 상태의 arrange score가 이웃상태보다 높거나 threshold의 도달할 경우 Final state로 반환하였습니다. 
+
+## 9. 최종 결과물
+
+7-4 )와 8의 이미지 레이아웃 좌표를 받아 django를 이용하여 좌표, segmentation이후 이미지, 요약문 등을 담은 csv 형태를 웹으로 전송하여 웹으로 구현하였습니다.
+
+![image](https://user-images.githubusercontent.com/105573554/188049716-dbe5ac82-6a8c-490e-baea-5a18ebe6ccf4.png)
+
+![image](https://user-images.githubusercontent.com/105573554/188049798-369cdf27-4243-48ea-ad8e-af2de8572de1.png)
+
+첫 화면에서 제공되는 키워드 클릭 시 ‘이미지로 보고싶진 않으신가요?’ 라는 문구를 띄웠고 이를 릭하게 되면 실시간 검색어가 시각화 된 페이지로 이동하게 됩니다. 해당 페이지에서 이미지로 나타낸 검색어에 마우스를 올리게 되면 작은 팝업으로 순위와 원래의 검색어가 나오게 됩니다. 우측에는 해당 검색어가 현재 이슈가 된 이유를 잘 설명하는 뉴스를 카드 뉴스 형식으로 나타내어주고 이미지 클릭 시 기사의 원본 링크로 이동하게 됩니다.
+
 
 ## 10. 서비스 활용 방안 및 기대효과
 
